@@ -13,7 +13,7 @@ module.exports = {
       name: "mesto-frontend",
       script: "npm",
       args: "start",
-      cwd: "./frontend", // serve из собранной папки
+      // cwd: "./frontend", // serve из собранной папки
       instances: 1,
       autorestart: true,
       watch: false,
