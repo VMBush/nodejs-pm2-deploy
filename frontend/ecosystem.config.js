@@ -39,8 +39,8 @@ module.exports = {
       "post-deploy": [
         "cp ./*.env ./frontend/*.env",
         "cd frontend",
-        "npm ci --only=production",
-        "npm run build",
+        // "npm ci --only=production",
+        "npm i && npm run build",
         "pm2 startOrRestart ecosystem.config.js --env production",
       ],
     },
