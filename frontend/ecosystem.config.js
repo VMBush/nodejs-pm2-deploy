@@ -11,9 +11,9 @@ module.exports = {
   apps: [
     {
       name: "mesto-frontend",
-      script: "./dist/app.js",
-      // args: "start",
-      // cwd: "./frontend", // serve из собранной папки
+      script: "npm",
+      args: "start",
+      cwd: "frontend",
       instances: 1,
       autorestart: true,
       watch: false,
@@ -33,8 +33,9 @@ module.exports = {
       host: DEPLOY_HOST,
       ref: DEPLOY_REF,
       repo: "git@github.com:VMBush/nodejs-pm2-deploy.git",
-      path: DEPLOY_PATH,
-      "pre-deploy-local": `scp ./*.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}`,
+      path: `${DEPLOY_PATH}/frontend`,
+      // "pre-deploy-local": `scp ./*.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}`,
+      "pre-deploy-local": `scp frontend/production.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/frontend/current/production.env`,
       // "post-deploy": "npm i && npm run build",
       "post-deploy": [
         "cp ./*.env ./frontend/*.env",
