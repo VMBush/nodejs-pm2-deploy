@@ -1,5 +1,3 @@
-require("dotenv").config({ path: "./production.env" });
-
 const {
   DEPLOY_USER,
   DEPLOY_HOST,
@@ -40,7 +38,7 @@ module.exports = {
         "cd frontend",
         "npm ci --only=production",
         "npm run build",
-        "pm2 startOrRestart ecosystem.config.js",
+        "pm2 startOrRestart ecosystem.config.js --env production",
       ],
     },
     // production: {
