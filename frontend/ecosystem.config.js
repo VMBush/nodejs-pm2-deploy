@@ -40,7 +40,7 @@ module.exports = {
         "cp ./*.env ./frontend/*.env",
         "cd frontend",
         "npm ci --only=production",
-        "NODE_OPTIONS=--openssl-legacy-provider npm run build",
+        "npm run build",
         "pm2 startOrRestart ecosystem.config.js --env production",
       ],
     },
