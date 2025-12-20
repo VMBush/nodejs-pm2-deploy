@@ -37,10 +37,10 @@ module.exports = {
       "pre-deploy-local": `scp ./*.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}`,
       // "post-deploy": "npm i && npm run build",
       "post-deploy": [
-        'cd frontend',
-        'npm ci --only=production',
-        'npm run build',
-        'pm2 reload ecosystem.config.js'
+        "cd frontend",
+        "npm ci --only=production",
+        "npm run build",
+        "pm2 startOrRestart ecosystem.config.js",
       ],
     },
     // production: {
