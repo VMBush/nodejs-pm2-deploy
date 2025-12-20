@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const {
   DEPLOY_USER,
   DEPLOY_HOST,
