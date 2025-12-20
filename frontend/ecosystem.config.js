@@ -11,8 +11,8 @@ module.exports = {
   apps: [
     {
       name: "mesto-frontend",
-      script: "npm",
-      args: "start",
+      script: "./dist/app.js",
+      // args: "start",
       // cwd: "./frontend", // serve из собранной папки
       instances: 1,
       autorestart: true,
