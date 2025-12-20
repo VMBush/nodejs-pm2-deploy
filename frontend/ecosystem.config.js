@@ -40,8 +40,8 @@ module.exports = {
         "cp ./*.env ./frontend/*.env",
         "cd frontend",
         // "npm ci --only=production",
-        "npm i && npm run build",
-        "pm2 startOrRestart ecosystem.config.js --env production",
+        "npm i && npm run build >> ./logs.txt",
+        "pm2 startOrRestart ecosystem.config.js --env production >> logs.txt",
       ],
     },
     // production: {
