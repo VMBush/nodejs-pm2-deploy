@@ -9,6 +9,15 @@ const {
 } = process.env;
 
 module.exports = {
+  apps: [
+    {
+      name: "mesto-frontend",
+      script: "src/index.js",
+      env_production: {
+        NODE_ENV: "production",
+      },
+    },
+  ],
   deploy: {
     production: {
       user: DEPLOY_USER,
@@ -16,7 +25,8 @@ module.exports = {
       ref: DEPLOY_REF,
       repo: "git@github.com:VMBush/nodejs-pm2-deploy.git",
       path: DEPLOY_PATH,
-      "post-deploy": "cd frontend && npm i && NODE_OPTIONS='--openssl-legacy-provider' npm run build",
+      "post-deploy":
+        "cd frontend && npm i && NODE_OPTIONS='--openssl-legacy-provider' npm run build && pm2 startOrReload ecosystem.config.js --env production",
     },
   },
 };
