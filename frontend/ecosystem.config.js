@@ -11,7 +11,7 @@ module.exports = {
   apps: [
     {
       name: "mesto-frontend",
-      script: "npm",
+      script: "pwd >> /tmp/logor.txt && npm",
       args: "start",
       cwd: "frontend",
       node_args: "--openssl-legacy-provider",
