@@ -27,7 +27,7 @@ module.exports = {
       path: DEPLOY_PATH,
       "pre-deploy-local": `scp .env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/current/frontend`,
       "post-deploy":
-        "cd frontend && npm i && npm audit fix --force && npm run build",
+        "nvm use v12.22.9 && cd frontend && npm i && npm audit fix --force && npm run build",
     },
   },
 };
