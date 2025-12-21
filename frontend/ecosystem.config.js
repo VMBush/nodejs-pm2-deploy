@@ -36,7 +36,7 @@ module.exports = {
       repo: "git@github.com:VMBush/nodejs-pm2-deploy.git",
       path: `${DEPLOY_PATH}`,
       // "pre-deploy-local": `scp ./*.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}`,
-      "pre-deploy-local": `scp frontend/production.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}shared/.env.production`,
+      "pre-deploy-local": `scp production.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}shared/.env.production`,
       // // "post-deploy": "npm i && npm run build",
       "post-deploy": `
         cd frontend &&
