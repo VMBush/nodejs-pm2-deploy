@@ -33,9 +33,9 @@ module.exports = {
       host: DEPLOY_HOST,
       ref: DEPLOY_REF,
       repo: "git@github.com:VMBush/nodejs-pm2-deploy.git",
-      path: `${DEPLOY_PATH}/frontend`,
+      path: `${DEPLOY_PATH}`,
       // "pre-deploy-local": `scp ./*.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}`,
-      //"pre-deploy-local": `scp production.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}frontend/current/production.env`,
+      "pre-deploy-local": `scp production.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}source/frontend/production.env`,
       // "post-deploy": "npm i && npm run build",
       "post-deploy": [
         "pwd >> /tmp/nalog.txt",
