@@ -1,8 +1,12 @@
 const dotenv = require("dotenv");
 dotenv.config({ path: "./production.env" });
 
-const { DEPLOY_USER, DEPLOY_HOST, DEPLOY_PATH, DEPLOY_REF } =
-  process.env;
+const {
+  DEPLOY_USER,
+  DEPLOY_HOST,
+  DEPLOY_PATH,
+  DEPLOY_REF = "origin/master",
+} = process.env;
 
 module.exports = {
   deploy: {
