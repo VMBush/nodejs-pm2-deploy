@@ -1,7 +1,7 @@
 const dotenv = require("dotenv");
 dotenv.config({ path: "./production.env" });
 
-const { DEPLOY_USER, DEPLOY_HOST, DEPLOY_PATH, DEPLOY_REPOSITORY, DEPLOY_REF } =
+const { DEPLOY_USER, DEPLOY_HOST, DEPLOY_PATH, DEPLOY_REF } =
   process.env;
 
 module.exports = {
@@ -10,7 +10,7 @@ module.exports = {
       user: DEPLOY_USER,
       host: DEPLOY_HOST,
       ref: DEPLOY_REF,
-      repo: DEPLOY_REPOSITORY,
+      repo: "git@github.com:VMBush/nodejs-pm2-deploy.git",
       path: DEPLOY_PATH,
       "post-deploy": "cd frontend && npm i && npm run build",
     },
