@@ -38,10 +38,11 @@ module.exports = {
       "pre-deploy-local": `scp production.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}source/frontend/production.env`,
       // "post-deploy": "npm i && npm run build",
       "post-deploy": [
-        "pwd >> /tmp/nalog.txt",
+        // "pwd >> /tmp/nalog.txt",
         // "cp ./*.env ./frontend/*.env",
         "cd frontend",
-        "cp ../../production.env ./production.env",
+        "export NODE_OPTIONS=--openssl-legacy-provider",
+        // "cp ../../production.env ./production.env",
         // "npm ci --only=production",
         "npm i && npm run build",
         // "pm2 startOrRestart ecosystem.config.js --env production >> logs.txt",
