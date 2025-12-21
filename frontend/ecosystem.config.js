@@ -39,6 +39,7 @@ module.exports = {
       "pre-deploy-local": `scp production.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}shared/.env.production`,
       // // "post-deploy": "npm i && npm run build",
       "post-deploy": `
+        nvm use v12.22.9 &&
         cd frontend &&
         ln -sfn ${DEPLOY_PATH}/shared/.env.production .env.production &&
         npm ci &&
