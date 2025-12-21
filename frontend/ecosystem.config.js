@@ -39,13 +39,19 @@ module.exports = {
       "pre-deploy-local": `scp production.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}shared/.env.production`,
       // // "post-deploy": "npm i && npm run build",
       "post-deploy": `
-      echo "POST DEPLOY START" >> /tmp/pm2-debug.log &&
-        nvm use v12.22.9 &&
-        cd frontend &&
-        ln -sfn ${DEPLOY_PATH}/shared/.env.production .env.production &&
-        npm ci &&
-        npm run build &&
-        pm2 startOrReload ecosystem.config.js --env production`,
+      set -e
+      export NVM_DIR="$HOME/.nvm"
+      [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+      echo "POST DEPLOY START" >> /tmp/pm2-debug.log
+      node -v >> /tmp/pm2-debug.log
+      npm -v >> /tmp/pm2-debug.log
+
+      cd frontend
+      ln -sfn ${DEPLOY_PATH}/shared/.env.production .env.production
+      npm ci
+      npm run build
+      pm2 startOrReload ecosystem.config.js --env production`
     },
   },
 };
