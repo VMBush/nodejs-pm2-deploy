@@ -16,7 +16,7 @@ module.exports = {
       ref: DEPLOY_REF,
       repo: "git@github.com:VMBush/nodejs-pm2-deploy.git",
       path: DEPLOY_PATH,
-      "post-deploy": "cd frontend && npm i && npm run build",
+      "post-deploy": "cd frontend && npm i && NODE_OPTIONS='--openssl-legacy-provider' npm run build",
     },
   },
 };
