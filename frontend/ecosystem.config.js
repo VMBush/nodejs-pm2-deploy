@@ -1,4 +1,4 @@
-require("dotenv").config({ path: "./production.env" });
+require("dotenv").config();
 
 const {
   DEPLOY_USER,
@@ -11,13 +11,12 @@ module.exports = {
   apps: [
     {
       name: "mesto-frontend",
-      script: "sh",
-      args: "-c 'pwd >> /tmp/logor.txt && npm start'",
+      script: "pm2",
+      args: "serve build 3000 --spa",
+      interpreter: "none",
       cwd: "frontend",
-      node_args: "--openssl-legacy-provider",
-      instances: 1,
+      // node_args: "--openssl-legacy-provider",
       autorestart: true,
-      watch: false,
       env: {
         NODE_ENV: "development",
         PORT: 3000,
@@ -25,6 +24,7 @@ module.exports = {
       env_production: {
         NODE_ENV: "production",
         PORT: 3000,
+        NODE_OPTIONS: "--openssl-legacy-provider",
       },
     },
   ],
@@ -36,36 +36,14 @@ module.exports = {
       repo: "git@github.com:VMBush/nodejs-pm2-deploy.git",
       path: `${DEPLOY_PATH}`,
       // "pre-deploy-local": `scp ./*.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}`,
-      // "pre-deploy-local": `scp production.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}source/frontend/production.env`,
+      "pre-deploy-local": `scp frontend/production.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}shared/.env.production`,
       // // "post-deploy": "npm i && npm run build",
-      "post-deploy": [
-        "sh -c 'pwd >> /tmp/logor.txt'",
-        // "cp ./*.env ./frontend/*.env",
-        "nvm use v12.22.9",
-        // "cd frontend",
-        // "export NODE_OPTIONS=--openssl-legacy-provider",
-        // // "cp ../../production.env ./production.env",
-        // // "npm ci --only=production",
-        // "npm i && npm run build",
-        // // "pm2 startOrRestart ecosystem.config.js --env production >> logs.txt",
-      ],
+      "post-deploy": `
+        cd frontend &&
+        ln -sfn ${DEPLOY_PATH}/shared/.env.production .env.production &&
+        npm ci &&
+        npm run build &&
+        pm2 reload ecosystem.config.js --env production`,
     },
-    // production: {
-    //   user: "user",
-    //   host: "158.160.203.193",
-    //   ref: "origin/main",
-    //   repo: "git@github.com:VMBush/nodejs-pm2-deploy.git",
-    //   path: "/home/user/mesto/frontend",
-    //   "pre-setup": "rm -rf releases/* current shared",
-    //   "post-deploy": [
-    //     "npm ci",
-    //     "npm run build",
-    //     //# Serve статических файлов (установите nginx или serve)
-    //     "npx serve -s build -l 3000 &",
-    //   ],
-    //   env: {
-    //     NODE_ENV: "production",
-    //   },
-    // },
   },
 };
