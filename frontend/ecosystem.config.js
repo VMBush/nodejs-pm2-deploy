@@ -1,9 +1,10 @@
-require("dotenv").config();
+require("dotenv").config({ path: "./.env.deploy" });
 
 const {
   DEPLOY_USER,
   DEPLOY_HOST,
   DEPLOY_PATH,
+  KEY_PATH,
   DEPLOY_REF = "origin/master",
 } = process.env;
 
@@ -11,47 +12,22 @@ module.exports = {
   apps: [
     {
       name: "mesto-frontend",
-      script: "pm2",
-      args: "serve build 3000 --spa",
-      interpreter: "none",
-      cwd: "frontend",
-      // node_args: "--openssl-legacy-provider",
-      autorestart: true,
-      env: {
-        NODE_ENV: "development",
-        PORT: 3000,
-      },
-      env_production: {
-        NODE_ENV: "production",
-        PORT: 3000,
-        NODE_OPTIONS: "--openssl-legacy-provider",
-      },
+      script: "./dist/app.js",
     },
   ],
+
+  // Настройка деплоя
   deploy: {
     production: {
+      key: KEY_PATH,
       user: DEPLOY_USER,
       host: DEPLOY_HOST,
       ref: DEPLOY_REF,
-      repo: "git@github.com:VMBush/nodejs-pm2-deploy.git",
-      path: `${DEPLOY_PATH}`,
-      // "pre-deploy-local": `scp ./*.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}`,
-      "pre-deploy-local": `scp production.env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}shared/.env.production`,
-      // // "post-deploy": "npm i && npm run build",
-      "post-deploy": `
-      set -e
-      export NVM_DIR="$HOME/.nvm"
-      [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-
-      echo "POST DEPLOY START" >> /tmp/pm2-debug.log
-      node -v >> /tmp/pm2-debug.log
-      npm -v >> /tmp/pm2-debug.log
-
-      cd frontend
-      ln -sfn ${DEPLOY_PATH}/shared/.env.production .env.production
-      npm ci
-      npm run build
-      pm2 startOrReload ecosystem.config.js --env production`
+      repo: "https://github.com/SilTr4/nodejs-pm2-deploy.git",
+      path: DEPLOY_PATH,
+      "pre-deploy-local": `scp .env ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_PATH}/current/frontend`,
+      "post-deploy":
+        "cd frontend && npm i && npm audit fix --force && npm run build",
     },
   },
 };
