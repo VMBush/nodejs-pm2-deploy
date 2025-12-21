@@ -14,6 +14,7 @@ module.exports = {
       script: "npm",
       args: "start",
       cwd: "frontend",
+      node_args: "--openssl-legacy-provider",
       instances: 1,
       autorestart: true,
       watch: false,
