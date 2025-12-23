@@ -12,7 +12,7 @@ module.exports = {
   apps: [
     {
       name: "mesto-backend",
-      script: "dist/app.ts",
+      script: "dist/app.js",
       env: {
         NODE_ENV: "development",
         PORT: 3000,
