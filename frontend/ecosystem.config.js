@@ -1,5 +1,5 @@
 const dotenv = require("dotenv");
-dotenv.config({ path: "./production.env" });
+dotenv.config({ path: "./.env.deploy" });
 
 const {
   DEPLOY_USER,
