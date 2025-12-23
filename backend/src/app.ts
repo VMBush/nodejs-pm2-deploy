@@ -9,15 +9,15 @@ import errorHandler from './middlewares/error-handler';
 import { DB_ADDRESS } from './config';
 import routes from './routes';
 
-const { PORT = 3001 } = process.env;
+const { PORT = 3000 } = process.env;
 const app = express();
 mongoose.connect(DB_ADDRESS);
 
 // Только для локальных тестов. Не используйте это в продакшене
 app.use(
-  cors({
-    origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
-  }),
+  cors(/*   {
+  //   origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+   } */),
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
