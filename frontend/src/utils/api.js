@@ -130,6 +130,6 @@ class Api {
   }
 }
 // Замените на адрес вашего бэкенда
-const api = new Api("http://api.mestobush.nomorepartiessbs.ru");
+const api = new Api("https://api.mestobush.nomorepartiessbs.ru");
 
 export default api;
